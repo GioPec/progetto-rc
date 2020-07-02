@@ -4,6 +4,13 @@ const flash = require('connect-flash');  //https://www.npmjs.com/package/connect
 var bodyParser = require("body-parser");  //https://www.npmjs.com/package/body-parser
 
 var app = express();
+
+var client_id = '6c036ce4eb7d461cb5ea006e055d5494'; // Your client id
+var client_secret = '81303dd1935f4e6aaa80495d452b2263'; // Your secret
+var redirect_uri = 'localhost:3000'; // Your redirect uri
+
+var scopes = 'user-read-private user-read-email'
+
 app.use(bodyParser.urlencoded({ extended: false }));
 
 
