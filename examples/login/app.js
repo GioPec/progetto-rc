@@ -1,7 +1,7 @@
 var express = require('express'),
   session = require('express-session'),
   passport = require('passport'),
-  swig = require('swig'),
+  swig = require('swig-templates'),
   SpotifyStrategy = require('passport-spotify').Strategy;
 
 var consolidate = require('consolidate');
@@ -60,8 +60,9 @@ app.use(session({ secret: 'keyboard cat', resave: true, saveUninitialized: true 
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(express.static(__dirname + '/public'));
+//app.use(express.static(__dirname + '/public'));
 
+//to make ejs work
 app.engine('html', consolidate.swig);
 
 app.get('/', function(req, res) {
