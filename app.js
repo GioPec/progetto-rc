@@ -2,51 +2,10 @@ var express = require('express'),
   session = require('express-session'),
   passport = require('passport'),
   ejs = require('ejs'),
-  SpotifyStrategy = require('passport-spotify').Strategy;
+  SpotifyStrategy = require('passport-spotify').Strategy,
+  dotenv = require('dotenv').config();
 
 //var consolidate = require('consolidate');
-
-var appKey = '6c036ce4eb7d461cb5ea006e055d5494'; // Your client id
-var appSecret = '81303dd1935f4e6aaa80495d452b2263'; // Your secret
-
-// Passport session setup.
-//   To support persistent login sessions, Passport needs to be able to
-//   serialize users into and deserialize users out of the session. Typically,
-//   this will be as simple as storing the user ID when serializing, and finding
-//   the user by ID when deserializing. However, since this example does not
-//   have a database of user records, the complete spotify profile is serialized
-//   and deserialized.
-passport.serializeUser(function(user, done) {
-  done(null, user);
-});
-
-passport.deserializeUser(function(obj, done) {
-  done(null, obj);
-});
-
-// Use the SpotifyStrategy within Passport.
-//   Strategies in Passport require a `verify` function, which accept
-//   credentials (in this case, an accessToken, refreshToken, expires_in
-//   and spotify profile), and invoke a callback with a user object.
-passport.use(
-  new SpotifyStrategy(
-    {
-      clientID: appKey,
-      clientSecret: appSecret,
-      callbackURL: 'http://localhost:8888/callback'
-    },
-    function(accessToken, refreshToken, expires_in, profile, done) {
-      // asynchronous verification, for effect...
-      process.nextTick(function() {
-        // To keep the example simple, the user's spotify profile is returned to
-        // represent the logged-in user. In a typical application, you would want
-        // to associate the spotify account with a user record in your database,
-        // and return that user instead.
-        return done(null, profile);
-      });
-    }
-  )
-);
 
 var app = express();
 
@@ -61,66 +20,31 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //app.use(express.static(__dirname + '/public'));
-
 //app.engine('html', consolidate.ejs);
 
-app.get('/', function(req, res) {
-  res.render('index.ejs', { user: req.user });
+//ROUTES
+
+var authRouter = require('./routes/auth');
+app.use('/', authRouter);
+
+//
+
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  //next(createError(404));
+  var router = express.Router();
+  module.exports = router;
 });
 
-app.get('/account', ensureAuthenticated, function(req, res) {
-  res.render('account.ejs', { user: req.user });
-});
+// error handler
+app.use(function(err, req, res, next) {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-app.get('/login', function(req, res) {
-  res.render('login.ejs', { user: req.user });
-});
-
-// GET /auth/spotify
-//   Use passport.authenticate() as route middleware to authenticate the
-//   request. The first step in spotify authentication will involve redirecting
-//   the user to spotify.com. After authorization, spotify will redirect the user
-//   back to this application at /auth/spotify/callback
-app.get(
-  '/auth/spotify',
-  passport.authenticate('spotify', {
-    scope: ['user-read-email', 'user-read-private'],
-    showDialog: true
-  }),
-  function(req, res) {
-    // The request will be redirected to spotify for authentication, so this
-    // function will not be called.
-  }
-);
-
-// GET /auth/spotify/callback
-//   Use passport.authenticate() as route middleware to authenticate the
-//   request. If authentication fails, the user will be redirected back to the
-//   login page. Otherwise, the primary route function function will be called,
-//   which, in this example, will redirect the user to the home page.
-app.get(
-  '/callback',
-  passport.authenticate('spotify', { failureRedirect: '/login' }),
-  function(req, res) {
-    res.redirect('/');
-  }
-);
-
-app.get('/logout', function(req, res) {
-  req.logout();
-  res.redirect('/');
+  // render the error page
+  res.status(err.status || 500);
+  res.render('error');
 });
 
 app.listen(8888);
-
-// Simple route middleware to ensure user is authenticated.
-//   Use this route middleware on any resource that needs to be protected.  If
-//   the request is authenticated (typically via a persistent login session),
-//   the request will proceed. Otherwise, the user will be redirected to the
-//   login page.
-function ensureAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) {
-    return next();
-  }
-  res.redirect('/login');
-}
