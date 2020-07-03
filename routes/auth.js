@@ -38,6 +38,11 @@ const appSecret = process.env.appSecret;
         callbackURL: 'http://localhost:8888/callback'
       },
       function(accessToken, refreshToken, expires_in, profile, done) {
+        
+        process.env.theToken = accessToken;
+
+        console.log(process.env.theToken);
+          
         // asynchronous verification, for effect...
         process.nextTick(function() {
           // To keep the example simple, the user's spotify profile is returned to
