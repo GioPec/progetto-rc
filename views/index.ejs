@@ -4,29 +4,24 @@
 		<title>Progetto RC</title>
 	</head>
 
-	<header>
-		<% if (!user) { %>
-			<p>
-			<a href="/">Home</a> |
-			<a href="/login">Log In</a>
-		</p>
-		<% } else { %>
-			<p>
-				<a href="/">Home</a> |
-				<a href="/account">Account</a> |
-				<a href="/logout">Log Out</a>
-			</p>
-		<% } %>
-	</header>
-
 	<body>
-		<% if (!user) { %>
-			<h2>Welcome! Please log in.</h2>
-			<p><a href="/login">login</a></p>
-		<% } else { %>
-			<h2>Hello, <%= user.username %>.</h2>
-			<p>Your email is <%= user.emails[0].value %></p>
-			<p>Your picture is:  <image src="<%= user.photos[0] %>"></image></p>
-		<% } %>
+		<center>
+			<% if (!user) { %>
+				<div style="margin-top: 20%;">
+					<h1>Benvenuto in Progetto RC!</h1>
+					<h3>Per cominciare, accedi attraverso Spotify</h3>
+					<br><br>
+					<a href="/auth/spotify"><button>Accedi</button></a>
+				</div>
+			<% } else { %>
+				<div style="margin-top: 10%;">
+					<h2>Ciao, <%= user.username %>.</h2>
+					<p>Sei acceduto correttamente con email: <%= user.emails[0].value %></p>
+					<p>La tua foto profilo:  <image src="<%= user.photos[0] %>"></image></p>
+					<h2>Comincia a cercare le tue canzoni preferite</h2>
+					<a href="/ricerca"><button>Inizia</button></a>
+				</div>
+			<% } %>
+		</center>
 	</body>
 </html>

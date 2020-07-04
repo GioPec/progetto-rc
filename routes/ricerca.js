@@ -3,38 +3,49 @@ var express = require('express'),
   ejs = require('ejs'),
   dotenv = require('dotenv').config(),
   router = express.Router(),
-  got = require('got');
-//const fetch= require('node-fetch');
+  got = require('got'),
+  axios = require('axios').default,
+  bodyParser = require('body-parser'),
+  fetch = require('node-fetch');
 
 const {ensureAuthenticated} = require('../authControl');
+const { MaxRedirectsError } = require('got');
 const appKey = process.env.appKey;
 const appSecret = process.env.appSecret;
 
 router.get('/', function(req,res) {
-    res.send("home_film in get");
+    res.render('ricerca.ejs', { user: req.user });
 });
 
 router.post("/", function(req, res) { 
-    var name = 'Despacito';
+    var name = req.body.song;
 
-    var theToken = fs.readFile('token.txt', function(err, data) {});
+    var theToken = process.env.theToken;
 
-    console.log(theToken);
+    //console.log(theToken);
 
-    var url = 'https://api.spotify.com/v1/search?q='+name+'&type=track';
-        (async () => {
-        try {
-            const response = await got(url);
-            let fileJson = JSON.parse(response.body);
-            if(false){
-                res.send("La canzone che cerchi non esiste");
-            }else{
-                res.send(fileJson);
-            }
-        } catch (error) {
-            res.send(error.response.body);
-        }
-    })();
+    var url = 'https://api.spotify.com/v1/search?q='+name+'&type=track&limit=10';
+
+    let bearerHeader = "Bearer "+ theToken
+    let headers = {
+        'Authorization': bearerHeader
+    }
+
+    //tutto pronto inviamo il messaggio con axios
+    axios.get(
+        url,
+        {headers: headers}
+    )
+    
+    //qualsiasi sia l'esito se la vede il chiamante
+    .then(function (response) {
+        console.log(response.data);
+        //res.send(response.data);
+        res.render('risultati.ejs', { data: response.data, user: req.user});
+    })
+    .catch(function (error) {
+        console.log(error);
+    })
 });
 
 module.exports = router;

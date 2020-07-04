@@ -1,0 +1,355 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+/* Importa monserrat, font utilizzato in tutto il sito */
+
+body {
+  padding-top: 85px;
+  font-family: "montserrat";
+  color: white;
+  background-color: #434547;
+}
+
+body button {
+  opacity: 0.9;
+}
+body button:hover {
+  opacity: 1;
+}
+
+.nero{
+  color: black;
+}
+.bianco{
+  color: white;
+}
+.allineamento-destra{
+  float:right;
+}
+.allineamento-sinistra{
+  float:left;
+}
+.xx-small{
+  font-size: xx-small;
+}
+.intestazione{
+  padding-top: 50px; 
+  padding-bottom: 50px;
+}
+.intestazione h1{
+  font-size: 400%;
+}
+.margini-sinistra{
+  margin-left: 15px;
+}
+/* --------------------------------------------------------------------- */
+.navtop{
+  text-align: center; 
+  background-color: #2f3133; 
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
+}
+
+.navbar a {
+ /* font-family: "montserrat";*/
+  float: left;
+  color: white;
+  text-align: center;
+  padding: 18px 22px;
+  text-decoration: none;
+  font-size: 17px
+}
+
+/* Cambia il colore dei link al passaggio del puntatore */
+.navbar a:hover {
+  background-color: brown;
+  transition: 0.2s;
+}
+/* Per dare al logo le stesse caratteristiche del passagio sul link */
+.navbar .iconahome:hover{  
+  background-color: brown;
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+.my_div {
+  /*font-family: "montserrat";*/
+  float: center;
+  color: white;
+  text-align: center;
+  padding: 18px 22px;
+  text-decoration: none;
+}
+
+.icona {
+  text-align: center;
+  padding: 1px 1px;
+  float: left;
+  /* https://codepen.io/sosuke/pen/Pjoqqp */  
+  filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(224deg) brightness(101%) contrast(102%)
+}
+
+/*icona del logo del cinema*/
+.iconahome {  
+  padding-right: 15px; 
+}
+
+/* --------------------------------------------------------------------- */
+
+.tabella {
+  background-color: #2676c0;
+  float: center;
+  width: 650px;
+  max-width: 100%;
+  margin:auto;
+}
+
+.tabella table td, .tabella table th {
+  min-width: 50px;
+  width: 24%;
+  border: none;
+  word-break: keep-all;
+  text-align: center;
+  padding: 1%;
+  font-size: x-large;
+}
+
+.tabella div{
+  font-size:xx-large; 
+  background-color:chocolate; 
+}
+
+.barra-homepage{
+  font-size:xx-large; 
+  margin:auto; 
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, .5);
+}
+
+/* --------------------------------------------------------------------- */
+
+.locandina {
+  margin: auto;
+  display:table-cell;
+  padding: 40px 0;
+  text-align: center; 
+}
+
+.sfondoLocandina {
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, .5);
+  background-repeat: no-repeat; 
+  background-size: cover;
+  background-position-x: 25%;
+  position: relative;
+}
+.divLocandina{
+  position: relative;
+  z-index: 1;
+}
+
+.movieimage {
+  margin-left: 7%;
+  margin-right: 7%;
+  margin-bottom: 7%;
+	background-position:center;
+	background-repeat:no-repeat;
+	background-size:cover;
+	height: 600px;
+  width:auto;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, .5);
+}
+
+.bottone {
+  position: relative;
+  margin-bottom: 10%;
+  background-color:chocolate; 
+  border: none;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, .5);
+  color: white;
+}
+
+
+.filtro{
+  background: #000;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  z-index: 0;
+  opacity: 0.5;
+  right: 0px;
+}
+
+/* --------------------------------------------------------------------- */
+/* immagine carosello */
+.carosello-img{
+  opacity: 0.5;
+  object-fit: cover;
+}
+.carosello-text{
+  top: 25%;
+}
+/* --------------------------------------------------------------------- */
+
+.grandi-classici{
+  background-color: brown;
+  text-align: center;
+  padding: 10px;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+}
+/*----------------------------------------------------------------------*/
+.logout {
+  position: relative;
+  display: inline-block;
+}
+.logout-content {
+  display: none;
+  position: absolute;
+  background-color: transparent;
+  min-width: 160px;
+  padding: 12px 16px;
+  z-index: 1;
+}
+
+.logout:hover .logout-content{
+  display: block;
+}
+
+/* --------------------------------------------------------------------- */
+
+.form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+}
+.form-signin .checkbox {
+  font-weight: 400;
+}
+.form-signin .form-control {
+  position: relative;
+  box-sizing: border-box;
+  height: auto;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  border:none;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border:none;
+}
+
+/* --------------------------------------------------------------------- */
+
+.slider{
+  -webkit-appearance: none; 
+  height: 20px; 
+  min-width: 150px; 
+  width: 25%; 
+  margin-left: 25px;
+  border: solid chocolate 0.5px;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  background: chocolate;
+  cursor: pointer;
+}
+
+/*--------------------------------------------------*/
+.frame-film{
+  border: solid chocolate 12px;
+}
+.titolo-film{
+  font-size: 250%;
+}
+.div-film{
+  background-color: #2f3133; 
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, .5);
+  width: 90%;
+  margin: auto;
+  height: 40%; 
+  white-space: nowrap; 
+  overflow-x: scroll;
+}
+.div-film img{
+  margin: 20px;
+  margin-right: 9%;
+}
+.descrizione-div-film{
+  margin-top: 20px;
+  background-color: #2676C0;
+  margin: auto; 
+  width: 90%;
+}
+/*--------------------------------------------------*/
+.logo-rl{
+  cursor: pointer; 
+  margin-top: -75px; 
+  margin-bottom: 25px;
+}
+.bottone-rl{
+  background-color: brown;
+  border: none; 
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, .5);
+}
+.larghezza-rl{
+  max-width: 330px;
+}
+.bottone-foot-rl{
+  margin: auto; 
+  background-color: chocolate; 
+  max-width: 300; 
+  border: none; 
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, .5); 
+}
+
+/*-----------------------------------------------------------*/
+.div-opinioni{
+  margin-bottom: 80px; 
+  width: 50%; 
+  margin: auto;
+}
+
+/*-----------------------------------------------------------*/
+.social-m{
+  margin: 4px;
+}
+.link-pad{
+  padding-right: 15px;
+}
+
+.titolo-carrello{
+  font-size: 80px;
+  background-color: brown; 
+  color: white;
+}
+.info-carrello{
+  font-size: 65px; 
+  background-color: chocolate;
+}
+.ordine-carrello{
+  width: 50%; 
+  margin: auto;
+}
+.descrizione-div-carrello{
+  background-color: chocolate;
+  width: 80%; 
+  margin: auto;
+}
+.acquisti-carrello{
+  width: 50%; 
+  min-width: 300px; 
+  margin: auto; 
+  background-color: rgb(253, 231, 170); 
+  border: solid black 3px;
+}

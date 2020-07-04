@@ -3,7 +3,8 @@ var express = require('express'),
   passport = require('passport'),
   ejs = require('ejs'),
   SpotifyStrategy = require('passport-spotify').Strategy,
-  dotenv = require('dotenv').config();
+  dotenv = require('dotenv').config(),
+  bodyParser = require('body-parser');
 
 var app = express();
 
@@ -11,12 +12,15 @@ var app = express();
 app.set('views', __dirname + '/views'); //cerco le views direttamente nella cartella giusta
 app.set('view engine', 'ejs');
 
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
 // sessione
 app.use(session({ secret: process.env.cookieSegreto, resave: true, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 
-//app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname));
 
 //ROUTES
 

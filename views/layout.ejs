@@ -2,23 +2,32 @@
 <html>
 
 <head>
-	<title>Passport-Spotify Example</title>
+	<link rel="stylesheet" type="text/css" href="../bootstrap-4.4.1/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../bootstrap-4.4.1/dist/css/bootstrap-grid.css"/>
 </head>
 
 <header>
 	
-	<% if (!user) { %>
-		<p>
-		<a href="/">Home</a> |
-		<a href="/login">Log In</a>
-	</p>
-	<% } else { %>
-		<p>
-			<a href="/">Home</a> |
-			<a href="/account">Account</a> |
-			<a href="/logout">Log Out</a>
-		</p>
-	<% } %>
+	<nav class="navbar navbar-expand-md navbar-dark">
+										   
+	   <div>
+	   
+		   <ul class="navbar-nav">
+			   <li align="left"> 
+				   <img onclick="" class="iconahome" src="" height="70px"/>
+			   </li>
+			   <li class="nav-item link-pad">
+				   <a class="nav-link" href="/index.ejs" style="color: green;">Homepage</a>
+			   </li>
+
+			   <li class="nav-item link-pad">
+				   <a class="nav-link" href="/ricerca.ejs" style="color: green;">Cerca</a>
+			   </li>
+			   
+			   <li class="nav-item link-pad">
+				   <a class="nav-link" href="/logout" style="color: green;">Logout</a>
+			   </li>
+		   </ul>
 
 </header>
 

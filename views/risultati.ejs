@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Risultati</title>
+</head>
+
+<header>
+	
+	<% if (!user) { %>
+		<p>
+		<a href="/">Home</a> |
+		<a href="/login">Log In</a>
+	</p>
+	<% } else { %>
+		<p>
+			<a href="/">Home</a> |
+			<a href="/account">Account</a> |
+            <a href="/logout">Log Out</a> |
+            <a href="/ricerca">Cerca</a>
+		</p>
+	<% } %>
+
+</header>
+
+
+<center>
+    <h1>Risultati:</h1>
+    <ul>
+        <% for(var i=0; i<data.tracks.items.length; i++) { %>
+            <li>
+                <a href='https://cinemamarcopolo.altervista.org/sito/homepage.html'>
+                    <img src='<%=data.tracks.items[i].album.images[1].url%>'>
+                </a><br>
+                <h2>Canzone: <%= data.tracks.items[i].name %></h2><br>
+                <h3>Artista: <%= data.tracks.items[i].album.artists[0].name %></h3><br>
+                <h4>Album: <%= data.tracks.items[i].album.name %></h4>
+            </li>
+            <hr>
+        <% } %>
+    </ul>
+</center>
+
+</html>
+
