@@ -14,23 +14,33 @@ router.get('/', function(req,res) {
 
     var theToken = process.env.theToken;    //???
 
-    var url = 'https://api.spotify.com/v1/tracks/' + id;
-
     let bearerHeader = "Bearer "+ theToken
     let headers = {
         'Authorization': bearerHeader
     }
 
-    //tutto pronto inviamo il messaggio con axios
     axios.get(
-        url,
+        'https://api.spotify.com/v1/tracks/' + id,
         {headers: headers}
     )
     
-    //qualsiasi sia l'esito se la vede il chiamante
     .then(function (response) {
-        res.render('daticanzone.ejs', { data: response.data, user: req.user});
+
+        //MUSIXMATCH
+
+        axios.get(
+            'http://api.musixmatch.com/ws/1.1/matcher.lyrics.get?q_track=' + response.data.name + '&q_artist=' +
+            response.data.artists[0].name + '&apikey=d9ac33f20bf282bc5799f661738e9661'
+        )
+        .then(function (response2) {
+            console.log(response2.data);
+            res.render('daticanzone.ejs', { spotify: response.data, musixmatch: response2.data, user: req.user});
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
     })
+
     .catch(function (error) {
         console.log(error);
     })
