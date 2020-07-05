@@ -2,10 +2,10 @@
 /* Importa monserrat, font utilizzato in tutto il sito */
 
 body {
-  padding-top: 85px;
+  /*padding-top: 85px;*/
   font-family: "montserrat";
   color: white;
-  background-color: #434547;
+  background-color: #191414;
 }
 
 body button {
@@ -43,7 +43,7 @@ body button:hover {
 /* --------------------------------------------------------------------- */
 .navtop{
   text-align: center; 
-  background-color: #2f3133; 
+  background-color: #191414; 
   box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
 }
 
@@ -59,12 +59,12 @@ body button:hover {
 
 /* Cambia il colore dei link al passaggio del puntatore */
 .navbar a:hover {
-  background-color: brown;
+  background-color: #1DB954;
   transition: 0.2s;
 }
 /* Per dare al logo le stesse caratteristiche del passagio sul link */
 .navbar .iconahome:hover{  
-  background-color: brown;
+  background-color: #1DB954;
   transition: 0.2s;
   cursor: pointer;
 }

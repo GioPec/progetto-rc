@@ -30,6 +30,9 @@ app.use('/', authRouter);
 var ricerca = require('./routes/ricerca');
 app.use('/ricerca', ricerca);
 
+var daticanzone = require('./routes/daticanzone');
+app.use('/daticanzone', daticanzone);
+
 //
 
 app.use(function(req, res, next) {

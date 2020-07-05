@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Ricerca</title>
+    <title>Risultati</title>
     <link rel="stylesheet" type="text/css" href="../bootstrap-4.4.1/dist/css/bootstrap.min.css"/>
 	<link rel="stylesheet" type="text/css" href="../bootstrap-4.4.1/dist/css/bootstrap-grid.css"/>
 	<link  rel="stylesheet" type="text/css" href="../stile.css"/>
@@ -10,11 +10,9 @@
 
 <%- include('layout') -%>
 
-<form action="http://localhost:8888/ricerca" method="post">
-    Canzone:<br>
-    <input type="text" name="song" placeholder=>
-    <br>
-    <input type="submit" value="Submit">
-</form>
+<h1>Success <%= data.name %></h1>
 
-</html>
+<iframe src="https://open.spotify.com/embed/track/<%= data.id %>>" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
+
+
