@@ -10,9 +10,22 @@
 
 <%- include('layout') -%>
 
-<h1><%= spotify.name %></h1>
+<body>
+    <center>
+        <div class="container sfondo" style="background-image: url('<%= spotify.album.images[0].url %>');">
+            <div class="filtro"></div>
+                <div class="noopacity">
+                    <h1><%= spotify.name %></h1>
+                    <br>
+                    <iframe src="https://open.spotify.com/embed/track/<%= spotify.id %>" width="320" height="400" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+                    <br>
+                    <h2>Lyrics: </h2><br>
+                    <span style="white-space: pre-line"><%= musixmatch.message.body.lyrics.lyrics_body.substring(0, musixmatch.message.body.lyrics.lyrics_body.length - 70) %></span>
+                    <br><br><br>
+                </div>
+            </div>
+        </div>
+    </center>
+</body>
 
-<iframe src="https://open.spotify.com/embed/track/<%= spotify.id %>>" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-<br>
-<span style="white-space: pre-line">Lyrics: <%= musixmatch.message.body.lyrics.lyrics_body %></span>
-
+</html>

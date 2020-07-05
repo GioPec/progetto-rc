@@ -20,7 +20,8 @@
 				<div style="margin-top: 10%;">
 					<h2>Ciao, <%= user.username %>.</h2>
 					<p>Sei acceduto correttamente con email: <%= user.emails[0].value %></p>
-					<p>La tua foto profilo:  <image src="<%= user.photos[0] %>"></image></p><h2>Comincia a cercare le tue canzoni preferite</h2>
+					<image src="<%= user.photos[0] %>"></image>
+					<h2>Comincia a cercare le tue canzoni preferite</h2>
 					<a href="/ricerca"><button>Inizia</button></a>
 				</div>
 			<% } %>

@@ -17,6 +17,7 @@ router.get('/', function(req,res) {
 
 router.post("/", function(req, res) { 
     var name = req.body.song;
+    if(name=="") {/*TODO: THROW ERROR*/}
 
     var theToken = process.env.theToken;    //???
 
@@ -29,16 +30,12 @@ router.post("/", function(req, res) {
         'Authorization': bearerHeader
     }
 
-    //tutto pronto inviamo il messaggio con axios
     axios.get(
         url,
         {headers: headers}
     )
     
-    //qualsiasi sia l'esito se la vede il chiamante
     .then(function (response) {
-        //console.log(response.data);
-        //res.send(response.data);
         res.render('risultati.ejs', { data: response.data, user: req.user});
     })
     .catch(function (error) {

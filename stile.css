@@ -10,8 +10,14 @@ body {
 
 body button {
   opacity: 0.9;
+
 }
 body button:hover {
+  background-color: #1DB954;
+  opacity: 1;
+}
+body input:hover {
+  background-color: #1DB954;
   opacity: 1;
 }
 
@@ -50,7 +56,7 @@ body button:hover {
 .navbar a {
  /* font-family: "montserrat";*/
   float: left;
-  color: white;
+  color: #1DB954;
   text-align: center;
   padding: 18px 22px;
   text-decoration: none;
@@ -60,6 +66,7 @@ body button:hover {
 /* Cambia il colore dei link al passaggio del puntatore */
 .navbar a:hover {
   background-color: #1DB954;
+  color: white;
   transition: 0.2s;
 }
 /* Per dare al logo le stesse caratteristiche del passagio sul link */
@@ -131,14 +138,12 @@ body button:hover {
   text-align: center; 
 }
 
-.sfondoLocandina {
-  box-shadow: 5px 5px 5px rgba(0, 0, 0, .5);
+.sfondo {
   background-repeat: no-repeat; 
   background-size: cover;
-  background-position-x: 25%;
   position: relative;
 }
-.divLocandina{
+.noopacity{
   position: relative;
   z-index: 1;
 }
@@ -165,13 +170,13 @@ body button:hover {
 }
 
 
-.filtro{
+.filtro {
   background: #000;
   height: 100%;
   width: 100%;
   position: absolute;
   z-index: 0;
-  opacity: 0.5;
+  opacity: 0.8;
   right: 0px;
 }
 

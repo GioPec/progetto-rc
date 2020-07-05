@@ -10,23 +10,26 @@
 
 <%- include('layout') -%>
 
-<center>
-    <h1>Risultati:</h1>
-    <ul>
-        <% for(var i=0; i<data.tracks.items.length; i++) { %>
-            <li>
-                <% var theLink='/daticanzone/?id='+ data.tracks.items[i].id %>
-                <a href=<%= theLink %> >
-                    <img src='<%= data.tracks.items[i].album.images[1].url %>'>
-                </a><br>
-                <h2>Canzone: <%= data.tracks.items[i].name %></h2><br>
-                <h3>Artista: <%= data.tracks.items[i].album.artists[0].name %></h3><br>
-                <h4>Album: <%= data.tracks.items[i].album.name %></h4>
-            </li>
-            <hr>
-        <% } %>
-    </ul>
-</center>
+<body>
+    <center>
+        <h1>Risultati:</h1><br>
+        <ul style="list-style: none">
+            <% for(var i=0; i<data.tracks.items.length; i++) { %>
+                <li>
+                    <% var theLink='/daticanzone/?id='+ data.tracks.items[i].id %>
+                    <a href=<%= theLink %> >
+                        <img src='<%= data.tracks.items[i].album.images[1].url %>'>
+                    </a><br>
+                    <h2>Canzone: <%= data.tracks.items[i].name %></h2><br>
+                    <h3>Artista: <%= data.tracks.items[i].album.artists[0].name %></h3><br>
+                    <h4>Album: <%= data.tracks.items[i].album.name %></h4>
+                </li>
+                <br>
+                <hr style="border:1px solid white;"><br>
+            <% } %>
+        </ul>
+    </center>
+</body>
 
 </html>
 
