@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Risultati Album</title>
+    <link rel="stylesheet" type="text/css" href="../bootstrap-4.4.1/dist/css/bootstrap.min.css"/>
+	<link rel="stylesheet" type="text/css" href="../bootstrap-4.4.1/dist/css/bootstrap-grid.css"/>
+	<link  rel="stylesheet" type="text/css" href="../stile.css"/>
+</head>
+
+<%- include('layout') -%>
+
+<body>
+    <center>
+        <h1>Risultati:</h1><br>
+        <ul style="list-style: none">
+            <% for(var i=0; i<data.albums.items.length; i++) { %>
+                <li>
+                    <% var theLink='/datialbum/?id='+ data.albums.items[i].id %>
+                    <a href=<%= theLink %> >
+                        <img src='<%= data.albums.items[i].images[1].url %>'>
+                    </a><br>
+                    <h2>Album: <%= data.albums.items[i].name %></h2><br>
+                    <h3>Artista: <%= data.albums.items[i].artists[0].name %></h3><br>
+                    <h4>Anno: <%= data.albums.items[i].release_date.substring(0,4) %></h4>
+                </li>
+                <br>
+                <hr style="border:1px solid white;"><br>
+            <% } %>
+        </ul>
+    </center>
+</body>
+
+</html>
+

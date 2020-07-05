@@ -30,8 +30,14 @@ app.use('/', authRouter);
 var ricerca = require('./routes/ricerca');
 app.use('/ricerca', ricerca);
 
+var ricercaAlbum = require('./routes/ricercaAlbum');
+app.use('/ricercaAlbum', ricercaAlbum);
+
 var daticanzone = require('./routes/daticanzone');
 app.use('/daticanzone', daticanzone);
+
+var datialbum = require('./routes/datialbum');
+app.use('/datialbum', datialbum);
 
 //
 
