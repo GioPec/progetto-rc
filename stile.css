@@ -16,10 +16,6 @@ body button:hover {
   background-color: #1DB954;
   opacity: 1;
 }
-body input:hover {
-  background-color: #1DB954;
-  opacity: 1;
-}
 
 .nero{
   color: black;

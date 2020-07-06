@@ -4,12 +4,15 @@ var express = require('express'),
   ejs = require('ejs'),
   SpotifyStrategy = require('passport-spotify').Strategy,
   dotenv = require('dotenv').config(),
-  router = express.Router();
+  router = express.Router(),
+  mongoose = require('mongoose'),
+  User = require('../models/user');
 
 
 const {ensureAuthenticated} = require('../authControl');
 const appKey = process.env.appKey;
 const appSecret = process.env.appSecret;
+const placeholderImage = "https://i.pinimg.com/originals/7c/c7/a6/7cc7a630624d20f7797cb4c8e93c09c1.png";
 
   // Passport session setup.
 //   To support persistent login sessions, Passport needs to be able to
@@ -39,17 +42,39 @@ const appSecret = process.env.appSecret;
       },
       function(accessToken, refreshToken, expires_in, profile, done) {
         
-        process.env.theToken = accessToken;
+        process.env.theToken = accessToken; //???
 
         console.log(process.env.theToken);
           
         // asynchronous verification, for effect...
         process.nextTick(function() {
-          // To keep the example simple, the user's spotify profile is returned to
-          // represent the logged-in user. In a typical application, you would want
-          // to associate the spotify account with a user record in your database,
-          // and return that user instead.
-          return done(null, profile);
+          
+          const newUser = {
+            email: profile._json.email,
+            id: profile._json.id,
+            username: profile._json.display_name,
+            picture: profile._json.images[0] ? profile._json.images[0].url : placeholderImage,
+            uri: profile._json.uri,
+            country: profile._json.country,
+          }
+          //console.log(profile);
+          //console.log(newUser);
+          // Check for existing user
+          User.findOne({
+            email:profile.email //photos[0].value
+            }).then(user => {
+            if(user){
+            // Return user
+            done(null, user);
+            } else {
+            // Create user
+            new User(newUser)
+                .save()
+                .then(user => done(null, user));
+                }
+            })
+
+          //return done(null, profile);
         });
       }
     )
@@ -80,8 +105,7 @@ const appSecret = process.env.appSecret;
       showDialog: true
     }),
     function(req, res) {
-      // The request will be redirected to spotify for authentication, so this
-      // function will not be called.
+      // Qui non ci arriviamo mai
     }
   );
   
@@ -92,7 +116,7 @@ const appSecret = process.env.appSecret;
   //   which, in this example, will redirect the user to the home page.
   router.get(
     '/callback',
-    passport.authenticate('spotify', { failureRedirect: '/login' }),
+    passport.authenticate('spotify', { failureRedirect: '/' }),
     function(req, res) {
       res.redirect('/');
     }

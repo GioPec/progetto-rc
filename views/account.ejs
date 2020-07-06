@@ -2,28 +2,19 @@
 <html>
 
 <head>
-	<title>Passport-Spotify Example</title>
+    <title>Dati Album</title>
+    <link rel="stylesheet" type="text/css" href="../bootstrap-4.4.1/dist/css/bootstrap.min.css"/>
+	<link rel="stylesheet" type="text/css" href="../bootstrap-4.4.1/dist/css/bootstrap-grid.css"/>
+	<link rel="stylesheet" type="text/css" href="../stile.css"/>
 </head>
 
-<header>
-	
-	<% if (!user) { %>
-		<p>
-		<a href="/">Home</a> |
-		<a href="/login">Log In</a>
-	</p>
-	<% } else { %>
-		<p>
-			<a href="/">Home</a> |
-			<a href="/account">Account</a> |
-			<a href="/logout">Log Out</a>
-		</p>
-	<% } %>
+<%- include('layout') -%>
 
-</header>
-<p>ID: <%= user.id %></p>
-<p>Profile:
-    <a href="<%= user.profileUrl %>"><%= user.profileUrl %></a>
-</p>
+<body>
+	<p>ID: <%= user.id %></p>
+	<p>Visita il tuo profilo:
+		<a href="<%= user.uri %>">vai</a>
+	</p>
+</body>
 </html>
 

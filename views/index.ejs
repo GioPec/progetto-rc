@@ -19,8 +19,8 @@
 			<% } else { %>
 				<div style="margin-top: 10%;">
 					<h2>Ciao, <%= user.username %>.</h2>
-					<p>Sei acceduto correttamente con email: <%= user.emails[0].value %></p>
-					<image src="<%= user.photos[0] %>"></image>
+					<p>Sei acceduto correttamente con email: <%= user.email %></p>
+					<image src="<%= user.picture %>"></image>
 					<h2>Comincia a cercare le tue canzoni preferite</h2>
 					<a href="/ricerca"><button>Inizia</button></a>
 				</div>

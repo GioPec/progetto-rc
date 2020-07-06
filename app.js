@@ -4,7 +4,8 @@ var express = require('express'),
   ejs = require('ejs'),
   SpotifyStrategy = require('passport-spotify').Strategy,
   dotenv = require('dotenv').config(),
-  bodyParser = require('body-parser');
+  bodyParser = require('body-parser'),
+  mongoose = require('mongoose');
 
 var app = express();
 
@@ -14,6 +15,15 @@ app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+//db
+mongoose.connect(process.env.mongoURL, {
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useUnifiedTopology: true
+}).then( function() { console.log("Connected to db")});
+
+
 
 // sessione
 app.use(session({ secret: process.env.cookieSegreto, resave: true, saveUninitialized: true }));
