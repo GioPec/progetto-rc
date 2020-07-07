@@ -33,7 +33,7 @@ router.get('/', function(req,res) {
             response.data.artists[0].name + '&apikey=d9ac33f20bf282bc5799f661738e9661'
         )
         .then(function (response2) {
-            console.log(response2.data);
+            //console.log(response2.data);
             res.render('daticanzone.ejs', { spotify: response.data, musixmatch: response2.data, user: req.user});
         })
         .catch(function (error) {

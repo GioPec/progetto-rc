@@ -97,6 +97,23 @@ body button:hover {
   padding-right: 15px; 
 }
 
+.column {
+  float: left;
+  width: 10%;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+/* Clear floats after the columns */
+.row {
+  width: 90%;
+}
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
 /* --------------------------------------------------------------------- */
 
 .tabella {

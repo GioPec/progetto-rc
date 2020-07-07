@@ -21,8 +21,6 @@ router.post("/", function(req, res) {
 
     var theToken = process.env.theToken;    //???
 
-    //console.log(theToken);
-
     var url = 'https://api.spotify.com/v1/search?q='+name+'&type=track&limit=5';
 
     let bearerHeader = "Bearer "+ theToken
