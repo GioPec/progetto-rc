@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Dati Album</title>
+    <title>Profilo - <%= user.username %></title>
     <link rel="stylesheet" type="text/css" href="../bootstrap-4.4.1/dist/css/bootstrap.min.css"/>
 	<link rel="stylesheet" type="text/css" href="../bootstrap-4.4.1/dist/css/bootstrap-grid.css"/>
 	<link rel="stylesheet" type="text/css" href="../stile.css"/>
@@ -11,10 +11,16 @@
 <%- include('layout') -%>
 
 <body>
-	<p>ID: <%= user.id %></p>
-	<p>Visita il tuo profilo:
-		<a href="<%= user.uri %>">vai</a>
-	</p>
+	<center>
+		<h1>Profilo di <%= user.username %></h1>
+		<p>(id: #<%= user.id %>)</p><br>
+		<h4>Email: <%= user.email %></h4>
+		<image src="<%= user.picture %>"></image><br><br>
+		<h4>Paese: <%= user.country %></h4>
+		<h4>Visita il profilo Spotify 
+			<a style="color: #1DB954" href="<%= user.uri %>">qui</a>
+		</h4>
+	</center>
 </body>
 </html>
 

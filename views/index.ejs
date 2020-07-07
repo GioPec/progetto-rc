@@ -14,15 +14,14 @@
 					<h1>Benvenuto in Progetto RC!</h1>
 					<h3>Per cominciare, accedi attraverso Spotify</h3>
 					<br><br>
-					<a href="/auth/spotify"><button>Accedi</button></a>
+					<a href="/auth/spotify"><button class="btn btn-success btn-rounded">Accedi</button></a>
 				</div>
 			<% } else { %>
 				<div style="margin-top: 10%;">
 					<h2>Ciao, <%= user.username %>.</h2>
-					<p>Sei acceduto correttamente con email: <%= user.email %></p>
-					<image src="<%= user.picture %>"></image>
+					<image src="<%= user.picture %>"></image><br><br><br>
 					<h2>Comincia a cercare le tue canzoni preferite</h2>
-					<a href="/ricerca"><button>Inizia</button></a>
+					<a href="/ricerca"><button class="btn btn-success btn-rounded">Inizia</button></a>
 				</div>
 			<% } %>
 		</center>
