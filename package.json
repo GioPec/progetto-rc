@@ -24,6 +24,7 @@
     "nodemon": "^2.0.4",
     "passport": "^0.4.1",
     "passport-spotify": "^1.1.0",
-    "request": "^2.88.2"
+    "request": "^2.88.2",
+    "socket.io": "^2.3.0"
   }
 }

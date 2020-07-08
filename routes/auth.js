@@ -52,7 +52,7 @@ const placeholderImage = "https://i.pinimg.com/originals/7c/c7/a6/7cc7a630624d20
           //console.log(newUser);
           // Check for existing user
           User.findOne({
-            email:profile.email
+            email:newUser.email
             }).then(user => {
             if(user){
             done(null, user);

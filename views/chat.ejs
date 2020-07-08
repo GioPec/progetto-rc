@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>Chat</title>
+  <link rel="stylesheet" href="stile.css">
+  <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io(); 
+        function getRandomColor() {
+            var letters = '0123456789ABCDEF';
+            var color = '#';
+            for (var i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+        var theColor = getRandomColor();    //???
+        function f() {
+            var name = document.getElementById('name').value;
+            var message = document.getElementById('message').value;
+
+            socket.emit('chatter', `
+            <a href='/account'>
+                <b style="color: #1DB954">${name}</b></a>: ${message}
+                `);
+            document.getElementById('message').value='';
+            return true;
+        }
+
+        socket.on('chatter', function(message) {
+            console.log(message);
+            var daAggiungere = '<li style="margin-bottom: 5px">' + message + '</li>';
+            document.getElementById('chat-messages').innerHTML += daAggiungere;
+        });
+    </script>
+</head>
+
+<body>
+    <%- include('layout') -%>
+    
+    <h1 align='center'>Chat</h1>
+    <div style="height: 400px; width: 80%; background-color: white; margin: auto; white-space: nowrap; overflow-y: scroll;">
+        <ul style="color: black; font-size: larger; list-style: none; position: relative" id='chat-messages'>
+            <!-- <li> dinamici -->
+        </ul>
+    </div>
+
+        <br><br>
+
+    <center>
+        <form>
+            <p>
+                <input style="display: none" type='text' class='input' value = "<%= user.username %>" id='name' readonly>
+            </p>
+            <p>
+                <textarea style="width: 60%;" class='input' placeholder='Scrivi qualcosa...' id='message' maxlength="999" required></textarea>
+            </p>
+            <p>
+                <input onClick="return f()" type='button' class='btn btn-success btn-rounded' value='Invia'>
+            </p>
+        </form>
+    </center>
+
+</body>
+</html>

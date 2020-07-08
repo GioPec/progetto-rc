@@ -5,7 +5,8 @@ var express = require('express'),
   SpotifyStrategy = require('passport-spotify').Strategy,
   dotenv = require('dotenv').config(),
   bodyParser = require('body-parser'),
-  mongoose = require('mongoose');
+  mongoose = require('mongoose'),
+  socketIO = require('socket.io');
 
 var app = express();
 
@@ -49,6 +50,9 @@ app.use('/daticanzone', daticanzone);
 var datialbum = require('./routes/datialbum');
 app.use('/datialbum', datialbum);
 
+var chat = require('./routes/socket');
+app.use('/chat', chat);
+
 //
 
 app.use(function(req, res, next) {
@@ -57,6 +61,17 @@ app.use(function(req, res, next) {
   module.exports = router;
 });
 
-app.listen(8888, () => { console.log('Server started on port 8888!')});
+const server = app.listen(8888, () => { console.log('Server started on port 8888!')});
+
+const io = socketIO(server);  //formazione WebSocket
+
+//connessione con la socket
+io.on('connection', (socket) => {
+  //console.log('a user connected')
+  socket.on('chatter', (message) => {
+    //console.log('chatter : ', message)
+    io.emit('chatter', message)
+  })
+})
 
 module.exports = app;

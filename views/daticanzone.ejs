@@ -20,7 +20,17 @@
                     <iframe src="https://open.spotify.com/embed/track/<%= spotify.id %>" width="320" height="400" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
                     <br>
                     <h2>Lyrics: </h2><br>
-                    <span style="white-space: pre-line"><%= musixmatch.message.body.lyrics.lyrics_body.substring(0, musixmatch.message.body.lyrics.lyrics_body.length - 70) %></span>
+                    <% if (musixmatch.message.header.status_code!=200) { %>
+                        <span style="white-space: pre-line">Sembra che il testo di questa canzone non sia disponibile! :(</span>
+                    <% } else { %>
+
+                        <% if (!musixmatch.message.body.lyrics.lyrics_body) { %>
+                            <span style="white-space: pre-line">Questo brano è uno strumentale! Goditi la musica :)</span>
+                        <% } else { %>
+                            <span style="white-space: pre-line"><%= musixmatch.message.body.lyrics.lyrics_body.substring(0, musixmatch.message.body.lyrics.lyrics_body.length - 70) %></span>
+                        <% } %>
+
+                    <% } %>
                     <br><br><br>
                 </div>
             </div>

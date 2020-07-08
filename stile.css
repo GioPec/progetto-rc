@@ -103,8 +103,6 @@ body button:hover {
   margin-top: 30px;
   margin-bottom: 30px;
 }
-
-/* Clear floats after the columns */
 .row {
   width: 90%;
 }
