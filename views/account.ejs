@@ -6,6 +6,8 @@
     <link rel="stylesheet" type="text/css" href="../bootstrap-4.4.1/dist/css/bootstrap.min.css"/>
 	<link rel="stylesheet" type="text/css" href="../bootstrap-4.4.1/dist/css/bootstrap-grid.css"/>
 	<link rel="stylesheet" type="text/css" href="../stile.css"/>
+
+	<script>function edit() { document.getElementById('edit').hidden=false; }</script>
 </head>
 
 <%- include('layout') -%>
@@ -17,7 +19,21 @@
 		<h4>Email: <%= user.email %></h4>
 		<image src="<%= user.picture %>"></image><br><br>
 		<h4>Paese: <%= user.country %></h4>
-		<br><br>
+		<br>
+
+		<button class="btn btn-info" onClick="return edit();">Modifica profilo</button><br><br>
+
+		<form id="edit" hidden action="http://localhost:8888/modificaUtente" method="post">
+			<input name="vecchiaEmail" hidden value="<%= user.email %>">
+			<label>Scegli il tuo nuovo username: </label>
+			<input name="nuovoUsername" type="text" maxlength="20" placeholder="<%= user.username %>" value="<%= user.username %>"><br><br>
+			<label>Carica una nuova immagine del profilo: </label>
+			<input name="nuovoFile" type="file"><br><br>
+			<label>Cambia il paese: </label>
+			<input name="nuovoPaese" type="text" maxlength="2" size=2 placeholder="<%= user.country %>" value="<%= user.country %>"><br><br>
+			<button class="btn btn-danger" onClick="function x() { document.getElementById('edit').hidden=true; }">Annulla</button>
+			<button class="btn btn-success" type="submit">Salva</button>
+		</form>
 
 		<hr style="border:1px solid green;"><br><br>
 

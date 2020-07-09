@@ -53,6 +53,9 @@ app.use('/datialbum', datialbum);
 var chat = require('./routes/socket');
 app.use('/chat', chat);
 
+var edit = require('./routes/modificaUtente');
+app.use('/modificaUtente', edit);
+
 //
 
 app.use(function(req, res, next) {

@@ -9,6 +9,8 @@ const UserSchema = new Schema({
   picture:                { type: String, required: true },
   uri:                    { type: String, required: true },
   country:                { type: String, required: true },
+  topTracks:              { type: String },
+  topArtists:             { type: String }
 });
 
 //create the model based on the schema previously defined

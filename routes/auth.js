@@ -14,6 +14,7 @@ const {ensureAuthenticated} = require('../authControl');
 const appKey = process.env.appKey;
 const appSecret = process.env.appSecret;
 const placeholderImage = "https://i.pinimg.com/originals/7c/c7/a6/7cc7a630624d20f7797cb4c8e93c09c1.png";
+var newUser;
 
   // Passport session setup.
     passport.serializeUser(function(user, done) {
@@ -40,13 +41,15 @@ const placeholderImage = "https://i.pinimg.com/originals/7c/c7/a6/7cc7a630624d20
           
         process.nextTick(function() {
           
-          const newUser = {
+          newUser = {
             email: profile._json.email,
             id: profile._json.id,
             username: profile._json.display_name,
             picture: profile._json.images[0] ? profile._json.images[0].url : placeholderImage,
             uri: profile._json.uri,
             country: profile._json.country,
+            topTracks: "",
+            topArtists: "",
           }
           //console.log(profile);
           //console.log(newUser);
@@ -98,6 +101,19 @@ const placeholderImage = "https://i.pinimg.com/originals/7c/c7/a6/7cc7a630624d20
               {headers: headers}
             )
             .then(function (responseBrani) {
+
+                //inserimento in db
+                completeUser = {
+                  topTracks: JSON.stringify(responseBrani.data),
+                  topArtists: JSON.stringify(response.data),
+                }
+
+                User.findOneAndUpdate({
+                  email: newUser.email
+                  }, completeUser , {upsert: true}).then(user => {
+                    //console.log(completeUser.topTracks);
+                  })
+
                 res.render('account.ejs', { user: req.user, data: response.data, dataBrani: responseBrani.data });
             })
             .catch(function (error) {
