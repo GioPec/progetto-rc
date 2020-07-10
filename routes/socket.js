@@ -5,7 +5,11 @@ var router = express.Router();
 const {ensureAuthenticated} = require('../authControl');
 
 router.get('/', ensureAuthenticated, (req, res) => {
-    res.render('chat.ejs', { user: req.user });
+    User.findOne({
+        email: req.user.email
+        }).then(newUser => {
+            res.render('chat.ejs', { user: newUser })
+        })
 });
 
 module.exports = router;

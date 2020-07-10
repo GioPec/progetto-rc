@@ -77,60 +77,66 @@ var newUser;
     //GET top artists
     router.get('/account', ensureAuthenticated, function(req, res) {
 
-      var url = 'https://api.spotify.com/v1/me/top/artists?time_range=long_term&limit=10';
+      var theUtente;
 
-      var theToken = process.env.theToken;    //???
+      User.findOne({
+        email: req.user.email
+        }).then( newUser => { theUtente=newUser;
 
-      let bearerHeader = "Bearer "+ theToken;
-      let headers = {
-          'Authorization': bearerHeader
-      }
+          var url = 'https://api.spotify.com/v1/me/top/artists?time_range=long_term&limit=10';
 
-      axios.get(
-          url,
-          {headers: headers}
-      )
-      
-      .then(function (response) {
+          var theToken = process.env.theToken;    //???
 
-            //GET top tracks
-            var urlBrani = 'https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=10';
+          let bearerHeader = "Bearer "+ theToken;
+          let headers = {
+              'Authorization': bearerHeader
+          }
 
-            axios.get(
-              urlBrani,
+          axios.get(
+              url,
               {headers: headers}
-            )
-            .then(function (responseBrani) {
+          )
+          
+          .then(function (response) {
 
-                //inserimento in db
-                completeUser = {
-                  username: req.user.username,
-                  picture: req.user.picture,
-                  country: req.user.country,
-                  email: req.user.email,
-                  id: req.user.id,
-                  uri: req.user.uri,
-                  topTracks: JSON.stringify(responseBrani.data),
-                  topArtists: JSON.stringify(response.data)
-                }
+                //GET top tracks
+                var urlBrani = 'https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=10';
 
-                User.findOneAndUpdate({
-                  email: completeUser.email
-                  }, completeUser, {upsert: true}).then(pippo => {
-                    console.log(completeUser.topArtists);
-                    res.render('account.ejs', { user: completeUser, data: response.data, dataBrani: responseBrani.data });
-                  });
+                axios.get(
+                  urlBrani,
+                  {headers: headers}
+                )
+                .then(function (responseBrani) {
 
-                
-            })
-            .catch(function (error) {
-                console.log(error);
-            })
+                    //inserimento in db
+                    completeUser = {
+                      username: newUser.username,
+                      picture: newUser.picture,
+                      country: newUser.country,
+                      email: newUser.email,
+                      id: newUser.id,
+                      uri: newUser.uri,
+                      topTracks: JSON.stringify(responseBrani.data),
+                      topArtists: JSON.stringify(response.data)
+                    }
 
-      })
-      .catch(function (error) {
-          console.log(error);
-      })
+                    User.findOneAndUpdate({
+                      email: completeUser.email
+                      }, completeUser, {upsert: true}).then(pippo => {
+                        res.render('account.ejs', { user: completeUser, data: response.data, dataBrani: responseBrani.data });
+                      });
+
+                    
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
+
+          })
+          .catch(function (error) {
+              console.log(error);
+          })
+        })
     });
   
     router.get('/login', function(req, res) {

@@ -34,9 +34,10 @@ router.post('/', ensureAuthenticated, function(req,res) {
 
             User.findOneAndUpdate({
                 email: req.body.vecchiaEmail
-                }, updatedUser , {upsert: true});
+                }, updatedUser , {upsert: true}).then(pippo => {
+                    res.render('account.ejs', { user: updatedUser, data: taParsato, dataBrani: ttParsato });
+                })
 
-            res.render('account.ejs', { user: updatedUser, data: taParsato, dataBrani: ttParsato });
     })
 });
 
