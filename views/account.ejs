@@ -7,7 +7,12 @@
 	<link rel="stylesheet" type="text/css" href="../bootstrap-4.4.1/dist/css/bootstrap-grid.css"/>
 	<link rel="stylesheet" type="text/css" href="../stile.css"/>
 
-	<script>function edit() { document.getElementById('edit').hidden=false; }</script>
+	<script>
+		function edit(show) { 
+			document.getElementById('edit').hidden=!show;
+			document.getElementById('edit2').hidden=!show;
+		}
+	</script>
 </head>
 
 <%- include('layout') -%>
@@ -21,19 +26,25 @@
 		<h4>Paese: <%= user.country %></h4>
 		<br>
 
-		<button class="btn btn-info" onClick="return edit();">Modifica profilo</button><br><br>
+		<button class="btn btn-info" onClick="return edit(true);">Modifica profilo</button><br><br>
 
-		<form id="edit" hidden action="http://localhost:8888/modificaUtente" method="post">
-			<input name="vecchiaEmail" hidden value="<%= user.email %>">
-			<label>Scegli il tuo nuovo username: </label>
-			<input name="nuovoUsername" type="text" maxlength="20" placeholder="<%= user.username %>" value="<%= user.username %>"><br><br>
-			<label>Carica una nuova immagine del profilo dal web: </label>
-			<input name="nuovoFile" type="text" value="<%= user.picture %>"><br><br>
-			<label>Cambia il paese: </label>
-			<input name="nuovoPaese" type="text" maxlength="2" size=2 placeholder="<%= user.country %>" value="<%= user.country %>"><br><br>
-			<button class="btn btn-danger" onClick="function x() { document.getElementById('edit').hidden=true; }">Annulla</button>
-			<button class="btn btn-success" type="submit">Salva</button>
-		</form>
+		<div style="background-color: #302C2C; width: 40%; text-align: left">
+			<form id="edit" hidden action="http://localhost:8888/modificaUtente" method="post" style="margin-left: 20px">
+				<br>
+				<input name="vecchiaEmail" hidden value="<%= user.email %>">
+				<label>Scegli il tuo nuovo username: </label>
+				<input name="nuovoUsername" type="text" maxlength="20" placeholder="<%= user.username %>" value="<%= user.username %>" size=12><br><br>
+				<label>Carica una nuova immagine del profilo dal web: </label>
+				<input name="nuovoFile" type="text" value="<%= user.picture %>" size=32><br><br>
+				<label>Cambia il paese: </label>
+				<input name="nuovoPaese" type="text" maxlength="2" size="2" placeholder="<%= user.country %>" value="<%= user.country %>"><br>
+			</form>
+			<div id="edit2" hidden style="text-align: right; margin-right: 20px;">
+				<button class="btn btn-danger" onClick="edit(false);">Annulla</button>
+				<button class="btn btn-success" type="submit" form="edit">Salva</button>
+				<br><br>
+			</div>
+		</div>
 
 		<hr style="border:1px solid green;"><br><br>
 
@@ -62,6 +73,7 @@
             <% } %>
 		</div>
 	</center>
+	<%- include('footer') -%>
 </body>
 </html>
 

@@ -71,7 +71,15 @@ var newUser;
   );
 
     router.get('/', function(req, res) {
-        res.render('index.ejs', { user: req.user });
+      if(!req.user) res.render('index.ejs', { user: req.user }); 
+      else {
+        User.findOne({
+          email: req.user.email
+          }).then(newUser => {
+              res.render('index.ejs', { user: newUser })
+          })
+      }
+      
     });
   
     //GET top artists
@@ -122,7 +130,7 @@ var newUser;
 
                     User.findOneAndUpdate({
                       email: completeUser.email
-                      }, completeUser, {upsert: true}).then(pippo => {
+                      }, completeUser, {upsert: true, useFindAndModify: false}).then(pippo => {
                         res.render('account.ejs', { user: completeUser, data: response.data, dataBrani: responseBrani.data });
                       });
 
