@@ -11,11 +11,11 @@ const {ensureAuthenticated} = require('../authControl');
 const appKey = process.env.appKey;
 const appSecret = process.env.appSecret;
 
-router.get('/', function(req,res) {
+router.get('/', ensureAuthenticated, function(req,res) {
     res.render('ricercaAlbum.ejs', { user: req.user });
 });
 
-router.post("/", function(req, res) { 
+router.post("/", ensureAuthenticated, function(req, res) { 
     var name = req.body.album.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
     if(name=="") {
         res.render("ricerca.ejs", { user: req.user });

@@ -75,7 +75,7 @@ var newUser;
     });
   
     //GET top artists
-    router.get('/account', function(req, res) {
+    router.get('/account', ensureAuthenticated, function(req, res) {
 
       var url = 'https://api.spotify.com/v1/me/top/artists?time_range=long_term&limit=10';
 
@@ -104,17 +104,24 @@ var newUser;
 
                 //inserimento in db
                 completeUser = {
+                  username: req.user.username,
+                  picture: req.user.picture,
+                  country: req.user.country,
+                  email: req.user.email,
+                  id: req.user.id,
+                  uri: req.user.uri,
                   topTracks: JSON.stringify(responseBrani.data),
-                  topArtists: JSON.stringify(response.data),
+                  topArtists: JSON.stringify(response.data)
                 }
 
                 User.findOneAndUpdate({
-                  email: newUser.email
-                  }, completeUser , {upsert: true}).then(user => {
-                    //console.log(completeUser.topTracks);
-                  })
+                  email: completeUser.email
+                  }, completeUser, {upsert: true}).then(pippo => {
+                    console.log(completeUser.topArtists);
+                    res.render('account.ejs', { user: completeUser, data: response.data, dataBrani: responseBrani.data });
+                  });
 
-                res.render('account.ejs', { user: req.user, data: response.data, dataBrani: responseBrani.data });
+                
             })
             .catch(function (error) {
                 console.log(error);

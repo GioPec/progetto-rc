@@ -8,7 +8,7 @@ var express = require('express'),
 const {ensureAuthenticated} = require('../authControl');
 const { response } = require('express');
 
-router.get('/', function(req,res) {
+router.get('/', ensureAuthenticated, function(req,res) {
     let id = req.query.id;
     //console.log(id);
 

@@ -2,7 +2,9 @@
 var express = require("express");
 var router = express.Router();
 
-router.get('/', (req, res) => {
+const {ensureAuthenticated} = require('../authControl');
+
+router.get('/', ensureAuthenticated, (req, res) => {
     res.render('chat.ejs', { user: req.user });
 });
 

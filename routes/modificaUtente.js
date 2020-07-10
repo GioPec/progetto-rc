@@ -7,33 +7,37 @@ var express = require('express'),
   bodyParser = require('body-parser'),
   fetch = require('node-fetch');
 
-router.post('/', function(req,res) {
+const {ensureAuthenticated} = require('../authControl');
 
-    var tt;
-    var ta;
+router.post('/', ensureAuthenticated, function(req,res) {
 
     User.findOne({
         email: req.body.vecchiaEmail
         }).then(user => {
-            tt = user.topTracks;
-            ta = user.topArtists;
-            console.log(tt);
-        })
+            var tt = user.topTracks;
+            var ta = user.topArtists;
+            var taParsato = JSON.parse(ta);
+            var ttParsato = JSON.parse(tt);
 
-    //inserimento in db
-    updatedUser = {
-        username: req.body.nuovoUsername,
-        image: req.body.nuovoFile,
-        country: req.body.nuovoPaese,
-    }
+            //inserimento in db
+            updatedUser = {
+                username: req.body.nuovoUsername,
+                picture: req.body.nuovoFile,
+                country: req.body.nuovoPaese,
 
-    User.findOneAndUpdate({
-        email: req.body.vecchiaEmail
-        }, updatedUser , {upsert: true}).then(user => {
-          //console.log(updatedUser.topTracks);
+                email: user.email,
+                id: user.id,
+                uri: user.uri,
+                topTracks: user.topTracks,
+                topArtists: user.topArtists
+            }
+
+            User.findOneAndUpdate({
+                email: req.body.vecchiaEmail
+                }, updatedUser , {upsert: true});
+
+            res.render('account.ejs', { user: updatedUser, data: taParsato, dataBrani: ttParsato });
     })
-
-    res.render('account.ejs', { user: updatedUser, data: JSON.parse(ta), dataBrani: JSON.parse(tt) });
 });
 
 module.exports = router;

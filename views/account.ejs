@@ -27,8 +27,8 @@
 			<input name="vecchiaEmail" hidden value="<%= user.email %>">
 			<label>Scegli il tuo nuovo username: </label>
 			<input name="nuovoUsername" type="text" maxlength="20" placeholder="<%= user.username %>" value="<%= user.username %>"><br><br>
-			<label>Carica una nuova immagine del profilo: </label>
-			<input name="nuovoFile" type="file"><br><br>
+			<label>Carica una nuova immagine del profilo dal web: </label>
+			<input name="nuovoFile" type="text" value="<%= user.picture %>"><br><br>
 			<label>Cambia il paese: </label>
 			<input name="nuovoPaese" type="text" maxlength="2" size=2 placeholder="<%= user.country %>" value="<%= user.country %>"><br><br>
 			<button class="btn btn-danger" onClick="function x() { document.getElementById('edit').hidden=true; }">Annulla</button>
