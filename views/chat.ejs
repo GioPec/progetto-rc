@@ -34,6 +34,14 @@
             document.getElementById('chat-messages').innerHTML += daAggiungere;
         });
     </script>
+    <script>
+        function runScript(e){
+            if (e.keyCode == 13) {
+                document.getElementById("invio").click();
+                return false;//serve false
+            }
+        }
+    </script>
 </head>
 
 <body style="height: 100%">
@@ -54,10 +62,11 @@
                 <input style="display: none" type='text' class='input' value = "<%= user.username %>" id='name' readonly>
             </p>
             <p>
-                <textarea style="width: 60%;" class='input' placeholder='Scrivi qualcosa...' id='message' maxlength="999" required></textarea>
+                <textarea onkeypress="return runScript(event)" style="width: 60%;" 
+                class='input' placeholder='Scrivi qualcosa...' id='message' maxlength="999" required></textarea>
             </p>
             <p>
-                <input onClick="return f()" type='button' class='btn btn-success btn-rounded' value='Invia'>
+                <input id= "invio" onClick="return f()" type='button' class='btn btn-success btn-rounded' value='Invia'>
             </p>
         </form>
     </center>
