@@ -56,6 +56,9 @@ app.use('/chat', chat);
 var edit = require('./routes/modificaUtente');
 app.use('/modificaUtente', edit);
 
+var accountPubblico = require('./routes/accountPubblico');
+app.use('/accountPubblico', accountPubblico);
+
 //
 
 app.use(function(req, res, next) {

@@ -34,6 +34,8 @@ var newUser;
         callbackURL: 'http://localhost:8888/callback'
       },
       function(accessToken, refreshToken, expires_in, profile, done) {
+
+        //console.log(expires_in);
         
         process.env.theToken = accessToken; //???
 
@@ -166,7 +168,7 @@ var newUser;
     '/callback',
     passport.authenticate('spotify', { failureRedirect: '/' }),
     function(req, res) {
-      res.redirect('/');
+      res.redirect('/account');
     }
   );
   

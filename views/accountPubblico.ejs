@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Profilo - <%= user.username %></title>
+    <link rel="stylesheet" type="text/css" href="../bootstrap-4.4.1/dist/css/bootstrap.min.css"/>
+	<link rel="stylesheet" type="text/css" href="../bootstrap-4.4.1/dist/css/bootstrap-grid.css"/>
+	<link rel="stylesheet" type="text/css" href="../stile.css"/>
+</head>
+
+<%- include('layout') -%>
+
+<% //var data=JSON.parse(user.topArtists) %>
+<% //var dataBrani=JSON.parse(user.topBrani) %>
+
+<body>
+	<center>
+		<h1>Profilo di <a style="color: #1DB954" href="<%= user.uri %>"><%= user.username %></a></h1>
+		<p>(id: #<%= user.id %>)</p><br>
+		<h4>Email: <%= user.email %></h4>
+		<image src="<%= user.picture %>"></image><br><br>
+		<h4>Paese: <%= user.country %></h4>
+
+		<hr style="border:1px solid green;"><br><br>
+
+		<h2>Artisti preferiti:</h2>
+		<div class="row">
+            <% for(var i=0; i<data.items.length; i++) { %>
+                <div class="column">
+					<a target="_blank" href="<%= data.items[i].uri %>"><img src='<%= data.items[i].images[1].url %>' style="height: 140px"></a>
+					<figcaption>
+						<a style="color: #1DB954" target="_blank" href="<%= data.items[i].uri %>"><%= data.items[i].name %></a>
+					</figcaption>
+                </div>
+            <% } %>
+		</div>
+
+		<h2>Brani preferiti:</h2>
+		<div class="row">
+            <% for(var i=0; i<dataBrani.items.length; i++) { %>
+                <div class="column">
+					<% var theLink="/daticanzone/?id=" + dataBrani.items[i].id %>
+					<a href= <%= theLink %> ><img style="border: solid #1DB954 10px; height: 140px" src='<%= dataBrani.items[i].album.images[1].url %>'></a>
+                    <figcaption>
+						<a style="color: #1DB954" href= <%= theLink %> ><%= dataBrani.items[i].name %></a>
+					</figcaption>
+                </div>
+            <% } %>
+		</div>
+	</center>
+	<%- include('footer') -%>
+</body>
+</html>
+

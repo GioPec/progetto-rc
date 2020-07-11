@@ -17,11 +17,12 @@
         }
         var theColor = getRandomColor();    //???
         function f() {
-            var name = document.getElementById('name').value;
+            var name = '<%= user.username %>';
             var message = document.getElementById('message').value;
+            var id = '<%= user.id %>';
 
             socket.emit('chatter', `
-            <a href='/account'>
+            <a href='/accountPubblico?id=${id}'>
                 <b style="color: #1DB954">${name}</b></a>: ${message}
                 `);
             document.getElementById('message').value='';
@@ -29,7 +30,7 @@
         }
 
         socket.on('chatter', function(message) {
-            console.log(message);
+            //console.log(message);
             var daAggiungere = '<li style="margin-bottom: 5px">' + message + '</li>';
             document.getElementById('chat-messages').innerHTML += daAggiungere;
         });
@@ -58,9 +59,6 @@
 
     <center>
         <form>
-            <p>
-                <input style="display: none" type='text' class='input' value = "<%= user.username %>" id='name' readonly>
-            </p>
             <p>
                 <textarea onkeypress="return runScript(event)" style="width: 60%;" 
                 class='input' placeholder='Scrivi qualcosa...' id='message' maxlength="999" required></textarea>
