@@ -19,7 +19,9 @@ Il progetto consiste nella creazione di una web app che utilizzi un paradigma RE
 
 ## Descrizione
 Il progetto realizzato utilizza le API fornite da Spotify al fine di effettuare la ricerca dei brani e degli album.
+
 Inoltre vengono impiegate le API fornite da Musixmatch per trovare i testi dei brani.
+
 Accedi al sito con il protocollo OAuth attraverso il tuo account Spotify, e potrai parlare con altri appassionati di musica come te utilizzando la chat integrata nel sito, che utilizza WebSocket.
 
 ## API reference
@@ -40,6 +42,6 @@ Le API utilizzate nel sito sono:
 
 Sviluppato con VSCode (Live Share) e testato con Postman
 
-## Endpoints
+## Documentazione API
 
 https://app.swaggerhub.com/apis-docs/SpotiX/SpotiX/1#/
