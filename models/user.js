@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-// User Schema, like a blueprint
 const UserSchema = new Schema({
   email:                  { type: String, required: true },
   id:                     { type: String, required: true },
@@ -13,7 +12,6 @@ const UserSchema = new Schema({
   topArtists:             { type: String }
 });
 
-//create the model based on the schema previously defined
 mongoose.model('users', UserSchema);
 
 module.exports = User = mongoose.model('users', UserSchema);

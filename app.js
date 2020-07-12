@@ -61,6 +61,26 @@ app.use('/accountPubblico', accountPubblico);
 
 //
 
+var ta = require('./routes/api/topArtists');
+app.use('/topArtists', ta);
+
+var tt = require('./routes/api/topTracks');
+app.use('/topTracks', tt);
+
+var st = require('./routes/api/searchTracks');
+app.use('/searchTracks', st);
+
+var sa = require('./routes/api/searchAlbums');
+app.use('/searchAlbums', sa);
+
+var tl = require('./routes/api/trackLyrics');
+app.use('/trackLyrics', tl);
+
+var ai = require('./routes/api/albumInfo');
+app.use('/albumInfo', ai);
+
+//
+
 app.use(function(req, res, next) {
   //next(createError(404));
   var router = express.Router();

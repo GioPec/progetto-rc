@@ -30,7 +30,7 @@ router.get('/', ensureAuthenticated, function(req,res) {
 
         axios.get(
             'http://api.musixmatch.com/ws/1.1/matcher.lyrics.get?q_track=' + response.data.name + '&q_artist=' +
-            response.data.artists[0].name + '&apikey=d9ac33f20bf282bc5799f661738e9661'
+            response.data.artists[0].name + '&apikey=' + process.env.musixmatchKey
         )
         .then(function (response2) {
             res.render('daticanzone.ejs', { spotify: response.data, musixmatch: response2.data, user: req.user});

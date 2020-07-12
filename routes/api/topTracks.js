@@ -17,25 +17,25 @@ const placeholderImage = "https://i.pinimg.com/originals/7c/c7/a6/7cc7a630624d20
 
 
 router.get('/', function(req, res) {
-  User.findOne({ email: req.query.email }).then( theUtente => {
+    User.findOne({ email: req.query.email }).then( theUtente => {
 
-      res.send( {"message": {
-          "header": {
-              "status_code": 200
-          },
-          "body": {
-              "artists": JSON.parse(theUtente.topArtists)
-          }
-      }
-  }
-  )}).catch( error => {
-      res.status(404).send( {"message": {
-          "header": {
-              "status_code": error
-          },
-          "body": {}
-      }}
-  )});
+        res.send( {"message": {
+            "header": {
+                "status_code": 200
+            },
+            "body": {
+                "artists": JSON.parse(theUtente.topTracks)
+            }
+        }
+    }
+    )}).catch( error => {
+        res.status(404).send( {"message": {
+            "header": {
+                "status_code": error
+            },
+            "body": {}
+        }}
+    )});
 });
 
 module.exports = router;
