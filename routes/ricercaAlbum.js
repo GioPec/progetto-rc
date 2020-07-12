@@ -8,20 +8,19 @@ var express = require('express'),
   fetch = require('node-fetch');
 
 const {ensureAuthenticated} = require('../authControl');
-const appKey = process.env.appKey;
-const appSecret = process.env.appSecret;
 
 router.get('/', ensureAuthenticated, function(req,res) {
     res.render('ricercaAlbum.ejs', { user: req.user });
 });
 
 router.post("/", ensureAuthenticated, function(req, res) { 
+    // Gestione accenti
     var name = req.body.album.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
     if(name=="") {
         res.render("ricerca.ejs", { user: req.user });
     }
 
-    var theToken = process.env.theToken;    //???
+    var theToken = process.env.theToken;
 
     var url = 'https://api.spotify.com/v1/search?q='+name+'&type=album&limit=5';
 

@@ -1,9 +1,7 @@
 var express = require('express'),
   session = require('express-session'),
   ejs = require('ejs'),
-  dotenv = require('dotenv').config(),
   router = express.Router(),
-  axios = require('axios').default,
   bodyParser = require('body-parser'),
   fetch = require('node-fetch');
 
@@ -34,7 +32,7 @@ router.post('/', ensureAuthenticated, function(req,res) {
 
             User.findOneAndUpdate({
                 email: req.body.vecchiaEmail
-                }, updatedUser , {upsert: true}).then(pippo => {
+                }, updatedUser , {upsert: true}).then(ris => {
                     res.render('account.ejs', { user: updatedUser, data: taParsato, dataBrani: ttParsato });
                 })
 

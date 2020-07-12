@@ -24,8 +24,6 @@ mongoose.connect(process.env.mongoURL, {
   useUnifiedTopology: true
 }).then( function() { console.log("Connected to db")});
 
-
-
 // sessione
 app.use(session({ secret: process.env.cookieSegreto, resave: true, saveUninitialized: true }));
 app.use(passport.initialize());
@@ -59,7 +57,7 @@ app.use('/modificaUtente', edit);
 var accountPubblico = require('./routes/accountPubblico');
 app.use('/accountPubblico', accountPubblico);
 
-//
+// API
 
 var ta = require('./routes/api/topArtists');
 app.use('/topArtists', ta);
@@ -81,21 +79,14 @@ app.use('/albumInfo', ai);
 
 //
 
-app.use(function(req, res, next) {
-  //next(createError(404));
-  var router = express.Router();
-  module.exports = router;
-});
-
 const server = app.listen(8888, () => { console.log('Server started on port 8888!')});
 
-const io = socketIO(server);  //formazione WebSocket
+// Gestione WebSocket
 
-//connessione con la socket
+const io = socketIO(server);
+
 io.on('connection', (socket) => {
-  //console.log('a user connected')
   socket.on('chatter', (message) => {
-    //console.log('chatter : ', message)
     io.emit('chatter', message)
   })
 })

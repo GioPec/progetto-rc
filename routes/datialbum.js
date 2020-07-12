@@ -10,9 +10,8 @@ const { response } = require('express');
 
 router.get('/', ensureAuthenticated, function(req,res) {
     let id = req.query.id;
-    //console.log(id);
 
-    var theToken = process.env.theToken;    //???
+    var theToken = process.env.theToken;
 
     let bearerHeader = "Bearer "+ theToken
     let headers = {

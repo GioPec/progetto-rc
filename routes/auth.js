@@ -16,7 +16,7 @@ const appSecret = process.env.appSecret;
 const placeholderImage = "https://i.pinimg.com/originals/7c/c7/a6/7cc7a630624d20f7797cb4c8e93c09c1.png";
 var newUser;
 
-  // Passport session setup.
+  // Passport setup
     passport.serializeUser(function(user, done) {
     done(null, user);
   });
@@ -25,7 +25,7 @@ var newUser;
     done(null, obj);
   });
   
-  // Use the SpotifyStrategy within Passport.
+  // Passport SpotifyStrategy
     passport.use(
     new SpotifyStrategy(
       {
@@ -37,7 +37,7 @@ var newUser;
 
         //console.log(expires_in);
         
-        process.env.theToken = accessToken; //???
+        process.env.theToken = accessToken;
 
         console.log(process.env.theToken);
           
@@ -53,9 +53,7 @@ var newUser;
             topTracks: "",
             topArtists: "",
           }
-          //console.log(profile);
-          //console.log(newUser);
-          // Check for existing user
+          // Controllo esistenza User
           User.findOne({
             email:newUser.email
             }).then(user => {
@@ -84,7 +82,6 @@ var newUser;
       
     });
   
-    //GET top artists
     router.get('/account', ensureAuthenticated, function(req, res) {
 
       var theUtente;
@@ -93,9 +90,10 @@ var newUser;
         email: req.user.email
         }).then( newUser => { theUtente=newUser;
 
+          //GET top artists
           var url = 'https://api.spotify.com/v1/me/top/artists?time_range=long_term&limit=10';
 
-          var theToken = process.env.theToken;    //???
+          var theToken = process.env.theToken;
 
           let bearerHeader = "Bearer "+ theToken;
           let headers = {
@@ -132,7 +130,7 @@ var newUser;
 
                     User.findOneAndUpdate({
                       email: completeUser.email
-                      }, completeUser, {upsert: true, useFindAndModify: false}).then(pippo => {
+                      }, completeUser, {upsert: true, useFindAndModify: false}).then(ris => {
                         res.render('account.ejs', { user: completeUser, data: response.data, dataBrani: responseBrani.data });
                       });
 
