@@ -33,10 +33,18 @@ router.post('/', ensureAuthenticated, function(req,res) {
             User.findOneAndUpdate({
                 email: req.body.vecchiaEmail
                 }, updatedUser , {upsert: true}).then(ris => {
-                    res.render('account.ejs', { user: updatedUser, data: taParsato, dataBrani: ttParsato });
+                    res.render('index.ejs', { user: updatedUser });
                 })
 
     })
+});
+
+router.get('/', ensureAuthenticated, function(req,res) {
+
+    User.findOneAndDelete({
+        email: req.query.laEmail
+        }).then( res.render('index.ejs', { user: null }) );
+        
 });
 
 module.exports = router;

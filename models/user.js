@@ -8,6 +8,7 @@ const UserSchema = new Schema({
   picture:                { type: String, required: true },
   uri:                    { type: String, required: true },
   country:                { type: String, required: true },
+  sessionToken:           { type: String },
   topTracks:              { type: String },
   topArtists:             { type: String }
 });

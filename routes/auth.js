@@ -15,6 +15,11 @@ const appKey = process.env.appKey;
 const appSecret = process.env.appSecret;
 const placeholderImage = "https://i.pinimg.com/originals/7c/c7/a6/7cc7a630624d20f7797cb4c8e93c09c1.png";
 var newUser;
+var sessionToken;
+
+function generateRandomToken() {
+  return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+}
 
   // Passport setup
     passport.serializeUser(function(user, done) {
@@ -40,6 +45,8 @@ var newUser;
         process.env.theToken = accessToken;
 
         console.log(process.env.theToken);
+        
+        sessionToken = generateRandomToken();
           
         process.nextTick(function() {
           
@@ -125,13 +132,14 @@ var newUser;
                       id: newUser.id,
                       uri: newUser.uri,
                       topTracks: JSON.stringify(responseBrani.data),
-                      topArtists: JSON.stringify(response.data)
+                      topArtists: JSON.stringify(response.data),
+                      sessionToken: sessionToken
                     }
 
                     User.findOneAndUpdate({
                       email: completeUser.email
                       }, completeUser, {upsert: true, useFindAndModify: false}).then(ris => {
-                        res.render('account.ejs', { user: completeUser, data: response.data, dataBrani: responseBrani.data });
+                        res.render('account.ejs', { user: completeUser, data: response.data, dataBrani: responseBrani.data, sessionToken: sessionToken });
                       });
 
                     

@@ -77,6 +77,12 @@ app.use('/trackLyrics', tl);
 var ai = require('./routes/api/albumInfo');
 app.use('/albumInfo', ai);
 
+var uu = require('./routes/api/updateUser');
+app.use('/updateUser', uu);
+
+var du = require('./routes/api/deleteUser');
+app.use('/deleteUser', du);
+
 //
 
 const server = app.listen(8888, () => { console.log('Server started on port 8888!')});

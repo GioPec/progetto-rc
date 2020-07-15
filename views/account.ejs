@@ -25,6 +25,8 @@
 		<image src="<%= user.picture %>"></image><br><br>
 		<h4>Paese: <%= user.country %></h4>
 		<br>
+		<p>Questo è il tuo session token, usalo per fare chiamate alle nostre API: <%= sessionToken %></p><br>
+		<br>
 
 		<button class="btn btn-info" onClick="return edit(true);">Modifica profilo</button><br><br>
 
@@ -45,6 +47,10 @@
 				<br><br>
 			</div>
 		</div>
+
+		<form action="http://localhost:8888/modificaUtente" method="get">
+		<input name="laEmail" hidden value="<%= user.email %>">
+		<button class="btn btn-danger" type="submit">Elimina profilo</button><br><br></form>
 
 		<hr style="border:1px solid green;"><br><br>
 
