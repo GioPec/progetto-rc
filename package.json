@@ -23,6 +23,7 @@
     "node-fetch": "^2.6.0",
     "nodemon": "^2.0.4",
     "passport": "^0.4.1",
+    "passport-oauth2-refresh": "^2.0.0",
     "passport-spotify": "^1.1.0",
     "request": "^2.88.2",
     "socket.io": "^2.3.0"

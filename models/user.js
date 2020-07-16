@@ -10,7 +10,9 @@ const UserSchema = new Schema({
   country:                { type: String, required: true },
   sessionToken:           { type: String },
   topTracks:              { type: String },
-  topArtists:             { type: String }
+  topArtists:             { type: String },
+  SpotifyToken:           { type: String },
+  refreshToken:           { type: String }
 });
 
 mongoose.model('users', UserSchema);

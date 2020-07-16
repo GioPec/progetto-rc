@@ -7,15 +7,17 @@ var express = require('express'),
   router = express.Router(),
   axios = require('axios').default,
   mongoose = require('mongoose'),
-  User = require('../models/user');
+  User = require('../models/user'),
+  refresh = require('passport-oauth2-refresh');
 
-
-const {ensureAuthenticated} = require('../authControl');
+const {ensureAuthenticated, makeBasicHeader} = require('../authControl');
 const appKey = process.env.appKey;
 const appSecret = process.env.appSecret;
 const placeholderImage = "https://i.pinimg.com/originals/7c/c7/a6/7cc7a630624d20f7797cb4c8e93c09c1.png";
 var newUser;
 var sessionToken;
+var SToken;
+var RToken;
 
 function generateRandomToken() {
   return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
@@ -42,10 +44,6 @@ function generateRandomToken() {
 
         //console.log(expires_in);
         
-        process.env.theToken = accessToken;
-
-        console.log(process.env.theToken);
-        
         sessionToken = generateRandomToken();
           
         process.nextTick(function() {
@@ -59,7 +57,14 @@ function generateRandomToken() {
             country: profile._json.country,
             topTracks: "",
             topArtists: "",
+            SpotifyToken: accessToken,
+            refreshToken: refreshToken
           }
+
+          SToken = accessToken;
+          RToken = refreshToken;
+          //console.log(SToken);
+
           // Controllo esistenza User
           User.findOne({
             email:newUser.email
@@ -100,9 +105,7 @@ function generateRandomToken() {
           //GET top artists
           var url = 'https://api.spotify.com/v1/me/top/artists?time_range=long_term&limit=10';
 
-          var theToken = process.env.theToken;
-
-          let bearerHeader = "Bearer "+ theToken;
+          let bearerHeader = "Bearer "+ SToken;
           let headers = {
               'Authorization': bearerHeader
           }
@@ -133,7 +136,9 @@ function generateRandomToken() {
                       uri: newUser.uri,
                       topTracks: JSON.stringify(responseBrani.data),
                       topArtists: JSON.stringify(response.data),
-                      sessionToken: sessionToken
+                      sessionToken: sessionToken,
+                      SpotifyToken: SToken,
+                      refreshToken: RToken
                     }
 
                     User.findOneAndUpdate({
@@ -145,13 +150,127 @@ function generateRandomToken() {
                     
                 })
                 .catch(function (error) {
-                    console.log(error);
-                })
+                  if (error.response.status==401) {
+                        
+                      User.findOne({
+                      email: req.user.email
+                      }).then( u => {
+  
+                          var url2 = 'https://accounts.spotify.com/api/token';
+  
+                          bearerHeader = makeBasicHeader();
+                          let headers = {
+                              'Authorization': bearerHeader
+                          }
+  
+                          let payload =
+                          'grant_type=refresh_token&'+
+                          'refresh_token='+u.refreshToken;    
+                
+                          axios.post(
+                              url2,
+                              payload,
+                              {headers: headers}
+                          )
+  
+                          .then(function (responseError) {
+                              newTokenUser = {
+                              SpotifyToken: responseError.data.access_token,
+                              }
+                              User.findOneAndUpdate({
+                              email: u.email
+                              }, newTokenUser, {upsert: true, useFindAndModify: false}).then(ris => { 
+
+                                //GET top tracks
+                                var urlBrani = 'https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=10';
+
+                                let bearerHeader = "Bearer "+ newTokenUser.SpotifyToken;
+                                let headers = {
+                                    'Authorization': bearerHeader
+                                }
+
+                                axios.get(
+                                  urlBrani,
+                                  {headers: headers}
+                                )
+                                .then(function (responseBrani) {
+
+                                    User.findOneAndUpdate({
+                                      email: completeUser.email
+                                      }, completeUser, {upsert: true, useFindAndModify: false}).then(ris => {
+                                        res.render('account.ejs', { user: completeUser, data: response.data, dataBrani: responseBrani.data, sessionToken: sessionToken });
+                                      });
+
+                                    
+                                })
+                              })
+                          })
+                        
+                  })}
+                  else console.log(error);
+              })
 
           })
           .catch(function (error) {
-              console.log(error);
-          })
+            if (error.response.status==401) {
+                  
+                User.findOne({
+                email: req.user.email
+                }).then( u => {
+
+                    var url2 = 'https://accounts.spotify.com/api/token';
+
+                    bearerHeader = makeBasicHeader();
+                    let headers = {
+                        'Authorization': bearerHeader
+                    }
+
+                    let payload =
+                    'grant_type=refresh_token&'+
+                    'refresh_token='+u.refreshToken;    
+          
+                    axios.post(
+                        url2,
+                        payload,
+                        {headers: headers}
+                    )
+
+                    .then(function (responseError) {
+                        newTokenUser = {
+                        SpotifyToken: responseError.data.access_token,
+                        }
+                        User.findOneAndUpdate({
+                        email: u.email
+                        }, newTokenUser, {upsert: true, useFindAndModify: false}).then(ris => { 
+
+                          //GET top tracks
+                          var urlBrani = 'https://api.spotify.com/v1/me/top/artists?time_range=long_term&limit=10';
+
+                          let bearerHeader = "Bearer "+ newTokenUser.SpotifyToken;
+                          let headers = {
+                              'Authorization': bearerHeader
+                          }
+
+                          axios.get(
+                            urlBrani,
+                            {headers: headers}
+                          )
+                          .then(function (responseBrani) {
+
+                              User.findOneAndUpdate({
+                                email: completeUser.email
+                                }, completeUser, {upsert: true, useFindAndModify: false}).then(ris => {
+                                  res.render('account.ejs', { user: completeUser, data: response.data, dataBrani: responseBrani.data, sessionToken: sessionToken });
+                                });
+
+                              
+                          })
+                        })
+                    })
+                  
+            })}
+            else console.log(error);
+        })
         })
     });
   

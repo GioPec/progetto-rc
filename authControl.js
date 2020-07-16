@@ -7,5 +7,18 @@ module.exports = {
         return next();
         }
         res.redirect('/');
+    },
+
+    makeBasicHeader: function() {   //thx F.
+    
+        let clientId = process.env.appKey;
+        let clientSec = process.env.appSecret;
+        let plainString = clientId + ':' + clientSec;
+        
+        let buff = new Buffer.from(plainString);
+        let encodedString = buff.toString('base64');
+        
+        let authToken = "Basic "+encodedString;
+        return authToken;
     }
 }
