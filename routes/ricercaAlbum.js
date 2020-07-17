@@ -5,8 +5,7 @@ var express = require('express'),
   router = express.Router(),
   axios = require('axios').default,
   bodyParser = require('body-parser'),
-  fetch = require('node-fetch'),
-  refresh = require('passport-oauth2-refresh');
+  fetch = require('node-fetch');
 
 const {ensureAuthenticated, makeBasicHeader} = require('../authControl');
 

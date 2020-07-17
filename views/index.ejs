@@ -20,15 +20,17 @@
 				<div style="margin-top: 10%;">
 					<h2>Ciao, <%= user.username %>.</h2>
 					<image src="<%= user.picture %>"></image><br><br><br>
-					<h2>Comincia a cercare le tue canzoni preferite</h2>
+					<h2>Benvenuto in SpotiX!<br><br>
+						Qui puoi cercare brani e album da Spotify, e leggerne i testi durante l'ascolto grazie a Musixmatch.<br>
+						Inoltre potrai parlare con altri appassionati di musica come te utilizzando la chat.<br><br>
+						Buon ascolto!<br><br>
+					</h2>
 					<a href="/ricerca"><button class="btn btn-success btn-rounded">Inizia</button></a>
 				</div>
+				<br><br><br><br>
+				<%- include('footer') -%>
 			<% } %>
 		</center>
-		<footer style="background-color: #1DB954; bottom: 0; position: absolute; width: 100%">
-	
-			<div class="my_div" style="color: #191414"><b>SpotiX | Giovanni Pecorelli, Giacomo Venneri, Jacopo Rossi</b></div>
 		
-		</footer>
 	</body>
 </html>

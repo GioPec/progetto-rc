@@ -8,7 +8,7 @@ var express = require('express'),
 router.get('/', function(req, res) {
     let id = req.query.id;
 
-    var theToken = req.query.token;
+    var theToken = req.header("SpotifyToken");
 
     let bearerHeader = "Bearer "+ theToken
     let headers = {

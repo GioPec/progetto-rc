@@ -3,8 +3,7 @@ var express = require('express'),
   ejs = require('ejs'),
   dotenv = require('dotenv').config(),
   axios = require('axios'),
-  router = express.Router(),
-  refresh = require('passport-oauth2-refresh');
+  router = express.Router();
 
 const {ensureAuthenticated, makeBasicHeader} = require('../authControl');
 const { response } = require('express');

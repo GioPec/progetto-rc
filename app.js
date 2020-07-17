@@ -93,6 +93,7 @@ const io = socketIO(server);
 
 io.on('connection', (socket) => {
   socket.on('chatter', (message) => {
+    //console.log(message);
     io.emit('chatter', message)
   })
 })

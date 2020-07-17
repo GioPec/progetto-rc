@@ -5,7 +5,7 @@ var express = require('express'),
 
 router.get('/', function(req, res) {
     var name = req.query.name;
-    var theToken = req.query.token;
+    var theToken = req.header("SpotifyToken");
 
     if(name=="" || theToken=="") {
         res.status(400).send(

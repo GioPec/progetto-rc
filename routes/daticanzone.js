@@ -4,9 +4,7 @@ var express = require('express'),
   dotenv = require('dotenv').config(),
   axios = require('axios'),
   router = express.Router(),
-  passport = require('passport'),
-  SpotifyStrategy = require('passport-spotify').Strategy,
-  refresh = require('passport-oauth2-refresh');
+  passport = require('passport');
 
 const {ensureAuthenticated, makeBasicHeader} = require('../authControl');
 const { response } = require('express');

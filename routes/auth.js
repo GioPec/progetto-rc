@@ -7,8 +7,7 @@ var express = require('express'),
   router = express.Router(),
   axios = require('axios').default,
   mongoose = require('mongoose'),
-  User = require('../models/user'),
-  refresh = require('passport-oauth2-refresh');
+  User = require('../models/user');
 
 const {ensureAuthenticated, makeBasicHeader} = require('../authControl');
 const appKey = process.env.appKey;
@@ -63,7 +62,7 @@ function generateRandomToken() {
 
           SToken = accessToken;
           RToken = refreshToken;
-          //console.log(SToken);
+          console.log(SToken);
 
           // Controllo esistenza User
           User.findOne({
