@@ -9,7 +9,7 @@ module.exports = {
         res.redirect('/');
     },
 
-    makeBasicHeader: function() {   //thx F.
+    makeBasicHeader: function() {
     
         let clientId = process.env.appKey;
         let clientSec = process.env.appSecret;

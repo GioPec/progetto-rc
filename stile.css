@@ -2,7 +2,6 @@
 /* Importa monserrat, font utilizzato in tutto il sito */
 
 body {
-  /*padding-top: 85px;*/
   font-family: "montserrat";
   color: white;
   background-color: #191414;
@@ -27,7 +26,6 @@ body button:hover {
 }
 
 .navbar a {
- /* font-family: "montserrat";*/
   float: left;
   color: #1DB954;
   text-align: center;

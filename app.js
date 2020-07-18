@@ -11,7 +11,7 @@ var express = require('express'),
 var app = express();
 
 // configura
-app.set('views', __dirname + '/views'); //cerco le views direttamente nella cartella giusta
+app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({ extended: false }));
