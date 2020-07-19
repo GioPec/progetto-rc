@@ -1087,9 +1087,9 @@ https://app.swaggerhub.com/apis-docs/SpotiX/SpotiX/1#/
 * **Metodo:**
   'PATCH'
 * **Parametri Url:**
-  'email' = 'cosa@cosa.cosa.it'
-  'username' = 'Cosa'
-  'country' = 'IT'
+  'email' = 'cosa@cosa.cosa.it'<br>
+  'username' = 'Cosa'<br>
+  'country' = 'IT'<br>
   'picture' = 'https://i.pinimg.com/originals/7c/c7/a6/7cc7a630624d20f7797cb4c8e93c09c1.png'
 * **Parametri Header:**
   'SpotiXToken' = '...'
