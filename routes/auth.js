@@ -62,7 +62,7 @@ function generateRandomToken() {
 
           SToken = accessToken;
           RToken = refreshToken;
-          console.log(SToken);
+          //console.log(SToken);
 
           // Controllo esistenza User
           User.findOne({
