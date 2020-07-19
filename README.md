@@ -60,7 +60,7 @@ https://app.swaggerhub.com/apis-docs/SpotiX/SpotiX/1#/
   'SpotifyToken' = '...'
 * **Risposta con successo**
    * **Code** 200 -> OK
-   * **Content** <sub><sup>{
+   * **Content** <sub><sup><p>{
     "message": {
         "header": {
             "status_code": 200
@@ -341,7 +341,7 @@ https://app.swaggerhub.com/apis-docs/SpotiX/SpotiX/1#/
                         "track_number": 9,
                         "type": "track",
                         "uri": "spotify:track:6habFhsOp2NvshLv26DqMb"
-                    }, ...</sup></sub>
+                    }, ...</p></sup></sub>
 
 ### searchAlbums
 
