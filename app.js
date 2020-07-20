@@ -18,6 +18,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 //db
+mongoose.set('useFindAndModify', false);
 mongoose.connect(process.env.mongoURL, {
   useNewUrlParser: true,
   useCreateIndex: true,
